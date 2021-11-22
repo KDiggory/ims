@@ -143,38 +143,7 @@ public class Order {
 		public void setItemId1(Long itemId) {
 			this.itemId = itemId;
 		}
-
-		public String getItemName2() {
-			return itemName2;
-		}
-
-		public void setItemName2(String itemName2) {
-			this.itemName2 = itemName2;
-		}
-
-		public Long getItemId2() {
-			return itemId2;
-		}
-
-		public void setItemId2(Long itemId2) {
-			this.itemId2 = itemId2;
-		}
-
-		public String getItemName3() {
-			return itemName3;
-		}
-
-		public void setItemName3(String itemName3) {
-			this.itemName3 = itemName3;
-		}
-
-		public Long getItemId3() {
-			return itemId3;
-		}
-
-		public void setItemId3(Long itemId3) {
-			this.itemId3 = itemId3;
-		}
+	
 
 		public Long getNumItems() {
 			return numItems;
@@ -184,7 +153,7 @@ public class Order {
 			this.numItems = numItems;
 		}
 
-		public double getTotalCost() {
+		public long getTotalCost() {
 			return totalCost;
 		}
 
