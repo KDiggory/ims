@@ -64,8 +64,10 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orders (customerId, totalCost)"
+
 								+ "VALUES (?,?)");) {
 			statement.setLong(1, order.getCustomerId());
+
 			statement.setLong(2, order.getTotalCost());
 			statement.executeUpdate();
 			return read(order.getId());
@@ -76,14 +78,13 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 	
+
 	
 	@Override
 	public Order update(Order order) {
 
 		return null;
 	}
-
-
 
 	@Override
 	public int delete(long id) {

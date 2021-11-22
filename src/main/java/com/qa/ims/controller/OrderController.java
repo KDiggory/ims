@@ -25,6 +25,14 @@ public class OrderController implements CrudController<Order>{
 	private OrderItemDAO orderItemDAO;
 
 
+	public OrderController(OrderDAO orderDAO, Utils utils) {
+		super();
+		this.orderDAO = orderDAO;
+		this.utils = utils;
+		
+		
+	}
+
 	@Override
 	public List<Order> readAll() {
 		List<Order> orders = orderDAO.readAll();
@@ -38,10 +46,58 @@ public class OrderController implements CrudController<Order>{
 	public Order create() {
 		LOGGER.info("Please enter the customer id");
 		Long customerId = utils.getLong();
+
 		OrderItemController orderItemController = new OrderItemController();
 		Order order = orderDAO.create(new Order(customerId));
+
+		LOGGER.info("Please enter the Item id");
+//		Long itemId = utils.getLong();
+//		LOGGER.info("Please enter the number you want to order");
+//		Long numItems = utils.getLong();
+//		
+//		//
+//		CustomerDAO customerDAO = new CustomerDAO();
+//		ItemDAO itemDAO = new ItemDAO();
+//		Customer cust = customerDAO.read(customerId);
+//		Item item = itemDAO.read(customerId);
+//		String customerSurname = cust.getSurname();
+//		String itemName = item.getName();
+//		Long totalCost = numItems * item.getCost();
+		
+		Order order = orderDAO.create(new Order(customerSurname, customerId, itemName, itemId,
+				 numItems, totalCost));
+
 		LOGGER.info("Order created");
 		orderItemController.create();
+		return order;
+	}
+
+
+	@Override
+	public Order update() {
+		System.out.println("You can only update the item or number of items in an order, "
+				+ "if you want to change anything more please delete and make a new order.");
+		
+		LOGGER.info("Please enter the id of the order you would like to update");
+		Long id = utils.getLong();
+		LOGGER.info("Please enter the item id you would like to update update");
+		Long itemId = utils.getLong();
+		LOGGER.info("Please enter the number of this item you would like");
+		Long numItems = utils.getLong();
+		
+		OrderDAO orderDAO = new OrderDAO();
+		Order ord = orderDAO.read(id);
+		CustomerDAO customerDAO = new CustomerDAO();
+		
+		String customerSurname = ord.getCustomerSurname();
+		Long customerId = ord.getCustomerId();
+		String itemName = ord.getItemName();
+		Item item = itemDAO.read(itemId);
+		Long totalCost = numItems * item.getCost();
+		
+		Order order = orderDAO.update(new Order(customerSurname, customerId, itemName, itemId,
+				 numItems, totalCost));
+		LOGGER.info("Order Updated");
 		return order;
 	}
 
