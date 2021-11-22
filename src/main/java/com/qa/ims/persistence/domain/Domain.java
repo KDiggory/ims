@@ -24,8 +24,9 @@ public enum Domain {
 
 	public static void printDomains() {
 		for (Domain domain : Domain.values()) {
+			System.out.println("");
 			LOGGER.info(domain.getDescription());
-		}
+		} System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 
 	public static Domain getDomain(Utils utils) {
