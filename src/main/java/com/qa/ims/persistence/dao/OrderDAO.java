@@ -21,13 +21,9 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
-		String customerSurname = resultSet.getString("customerSurname");
 		Long customerId = resultSet.getLong("customerId");
-		String itemName = resultSet.getString("itemName");
-		Long itemId = resultSet.getLong("itemId");
-		Long numItems = resultSet.getLong("numItems");
 		Long totalCost = resultSet.getLong("totalCost");
-		return new Order (id, customerSurname, customerId, itemName, itemId,numItems, totalCost);
+		return new Order (customerId);
 	}
 
 	@Override
@@ -68,8 +64,10 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orders (customerId, totalCost)"
-								+ "VALUES (?, ?");) {
-			statement.setString(1, order.getCustomerSurname());
+
+								+ "VALUES (?,?)");) {
+			statement.setLong(1, order.getCustomerId());
+
 			statement.setLong(2, order.getTotalCost());
 			statement.executeUpdate();
 			return read(order.getId());
@@ -84,24 +82,9 @@ public class OrderDAO implements Dao<Order> {
 	
 	@Override
 	public Order update(Order order) {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET customerSurname = ?, itemName = ?, itemId = ?, numItems = ?, totalCost = ? WHERE id = ?");) {
-			statement.setString(1, order.getCustomerSurname());
-			statement.setString(2, order.getItemName());
-			statement.setLong(3, order.getItemId());
-			statement.setLong(4, order.getNumItems());
-			statement.setDouble(5, order.getTotalCost());
-			statement.setLong(6, order.getId());
-			statement.executeUpdate();
-			return read(order.getId());
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
+
 		return null;
 	}
-
 
 	@Override
 	public int delete(long id) {
