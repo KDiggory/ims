@@ -23,6 +23,10 @@ public class OrderController implements CrudController<Order>{
 	private Utils utils;
 
 
+	public OrderController(OrderDAO orderDAO, Utils utils) {
+		
+	}
+
 	@Override
 	public List<Order> readAll() {
 		List<Order> orders = orderDAO.readAll();

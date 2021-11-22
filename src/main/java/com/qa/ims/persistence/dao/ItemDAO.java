@@ -31,7 +31,7 @@ public class ItemDAO implements Dao<Item> {
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM customers");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM items");) {
 			List<Item> items = new ArrayList<>();
 			while (resultSet.next()) {
 				items.add(modelFromResultSet(resultSet));
@@ -82,7 +82,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE customers SET name = ?, size = ?, cost = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE items SET name = ?, size = ?, cost = ? WHERE id = ?");) {
 			statement.setString(1, item.getName());
 			statement.setString(2, item.getSize());
 			statement.setDouble(3, item.getCost());			
